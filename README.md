@@ -1,7 +1,5 @@
 # Kubeflow Helm Chart
 
-![MIT License](https://img.shields.io/github/license/mahdikhashan/kubeflow-helm-chart) ![Release Charts](https://github.com/community-charts/helm-charts/workflows/Release%20Charts/badge.svg?branch=main) [![Releases downloads](https://img.shields.io/github/downloads/community-charts/helm-charts/total.svg)](https://github.com/community-charts/helm-charts/releases) [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/community-charts)](https://artifacthub.io/packages/search?repo=community-charts)
-
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.
@@ -14,6 +12,29 @@ helm repo add kubeflow-chart https://mahdikhashan.github.io/kubeflow-helm-chart
 helm repo update
 ```
 
-You can then run `helm search repo kubeflow-chart` to see the charts.
+or to use it as an ArgoCD App
 
+```yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: kubeflow
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/compare-options: IgnoreExtraneous
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/mahdikhashan/kubeflow-helm-chart
+    targetRevision: main
+    path: chart
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kubeflow
+```
 
+---
+
+[LICENCE](https://github.com/mahdikhashan/kubeflow-helm-chart/blob/main/LICENCE)
