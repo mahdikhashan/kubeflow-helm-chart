@@ -26,7 +26,7 @@ istioBase:
   spec:
     project: default
     source:
-      path: common/istio-1-23/istio-crds/base
+      path: common/istio-1-24/istio-crds/base
       repoURL: https://github.com/kubeflow/manifests
       targetRevision: master
     destination:
